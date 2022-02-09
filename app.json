@@ -45,6 +45,16 @@
             "description": "Name of your Heroku app, given in the first blank on this page. To be added if deploying to heroku ONLY.",
             "value": "",
             "required": false
+        }, 
+        "LOG_CHANNEL": {
+            "description": "Log ID",
+            "value": "",
+            "required": false
+        },
+         "BOT_TOKEN": {
+            "description": "Bot Token",
+            "value": "",
+            "required": false
         }
     },
     "formation": {
