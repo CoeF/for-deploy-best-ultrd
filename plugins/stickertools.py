@@ -56,7 +56,7 @@ from . import (
 @ultroid_cmd(pattern="packkang")
 async def pack_kangish(_):
     _e = await _.get_reply_message()
-    if not (_e and _e.sticker and _e.file.mime_type != "image/webp"):
+    if not (_e and _e.sticker and _e.file.mime_type == "image/webp"):
         return await _.eor(get_string("sts_4"))
     if len(_.text) > 9:
         _packname = _.text.split(" ", maxsplit=1)[1]
@@ -228,6 +228,9 @@ async def hehe(args):
                     await conv.get_response()
                     await conv.send_message(packname)
                     x = await conv.get_response()
+                    if x.text.startswith("Alright! Now send me the video sticker."):
+                        await conv.send_file(photo, force_document=True)
+                        x = await conv.get_response()
                     if x.text in ["Invalid pack selected.", "Invalid set selected."]:
                         await conv.send_message(cmd)
                         await conv.get_response()
@@ -268,12 +271,12 @@ async def hehe(args):
                     else:
                         file.seek(0)
                     await conv.send_file(file, force_document=True)
-                rsp = await conv.get_response()
-                if "Sorry, the file type is invalid." in rsp.text:
-                    await xx.edit(
-                        get_string("sts_8"),
-                    )
-                    return
+                    rsp = await conv.get_response()
+                    if "Sorry, the file type is invalid." in rsp.text:
+                        await xx.edit(
+                            get_string("sts_8"),
+                        )
+                        return
                 await conv.send_message(emoji)
                 await conv.get_response()
                 await conv.send_message("/done")
